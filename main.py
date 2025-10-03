@@ -1,5 +1,11 @@
+import os
+from dotenv import load_dotenv
+
 def main():
-    print("Hello from playlist-scraper!")
+    load_dotenv()
+
+    print(os.getenv("SPOTIFY_CLIENT_ID"))
+    print(os.getenv("SPOTIFY_CLIENT_SECRET"))
 
 
 if __name__ == "__main__":
