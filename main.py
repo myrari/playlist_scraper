@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 import os
 import re
@@ -22,6 +24,16 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default="",
         help="Name of playlist to search for",
+    )
+
+    parser.add_argument(
+        "-t",
+        "--time",
+        dest="start_hour",
+        required=False,
+        type=int,
+        default="12",
+        help="Starting hour of the show (in 24 hour time)",
     )
 
     return parser.parse_args()
@@ -106,10 +118,9 @@ def main():
         nonlocal time_elapsed
         e = time_elapsed
         time_elapsed += length
-        start_hour = int(os.getenv("START_HOUR"))  # type: ignore
         start_time = (
             datetime.datetime.fromisoformat(today.isoformat())
-            + datetime.timedelta(hours=start_hour)
+            + datetime.timedelta(hours=args.start_hour)
             + e
         )
         time_played = start_time.strftime("%I:%M %p")
