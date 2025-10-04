@@ -48,7 +48,7 @@ def main():
         auth_manager=spotipy.SpotifyOAuth(
             client_id=os.getenv("SPOTIFY_CLIENT_ID"),
             client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
-            redirect_uri="http://127.0.0.1:4242",
+            redirect_uri="http://127.0.0.1:4242/callback",
             scope=["playlist-read-private", "playlist-read-collaborative"],
         )
     )
