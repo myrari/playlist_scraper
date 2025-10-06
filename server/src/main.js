@@ -14,11 +14,15 @@ addEventListener("DOMContentLoaded", _ => {
     const main_interact_elem = document.getElementById("main_interact");
     user_text_elem = document.getElementById("user_text");
 
-    if (access_token == null || remaining <= 0) {
-        console.log("no token yet or expired");
+    if (access_token == null) {
+        console.log("no token yet");
 
         main_interact_elem.innerHTML = "<form action='http://127.0.0.1:4242/login' method='get'><button type='submit'>Login</button></form>";
 
+    } else if (remaining <= 0) {
+	console.log("token expired");
+	// redirect back to main page
+	window.location.href = "//127.0.0.1:4242/";
     } else {
         console.log(`token!! (${remaining} remaining)`);
 
