@@ -10,7 +10,7 @@ const port = process.env.PORT;
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 
-const redirect_uri = "http://127.0.0.1:4242/callback";
+const base_redirect_uri = process.env.BASE_REDIRECT_URI;
 
 const root = dirname(fileURLToPath(import.meta.url))
 
@@ -51,7 +51,7 @@ app.get('/login', (_req, res) => {
             response_type: 'code',
             client_id: client_id,
             scope: scope,
-            redirect_uri: redirect_uri,
+            redirect_uri: base_redirect_uri + "/callback",
             state: state
         }));
 });
@@ -70,7 +70,7 @@ app.get("/callback", (req, res) => {
             method: "POST",
             body: stringify({
                 code: code?.toString(),
-                redirect_uri: redirect_uri,
+                redirect_uri: base_redirect_uri + "/callback",
                 grant_type: "authorization_code",
             }),
             headers: {
@@ -84,7 +84,7 @@ app.get("/callback", (req, res) => {
             const access_token = body.access_token;
             const expires_in = body.expires_in;
 
-            res.redirect("http://127.0.0.1:4242/?" +
+            res.redirect(base_redirect_uri + "/?" +
                 stringify({
                     access_token: access_token,
                     expire_time:

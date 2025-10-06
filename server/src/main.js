@@ -17,12 +17,12 @@ addEventListener("DOMContentLoaded", _ => {
     if (access_token == null) {
         console.log("no token yet");
 
-        main_interact_elem.innerHTML = "<form action='http://127.0.0.1:4242/login' method='get'><button type='submit'>Login</button></form>";
+        main_interact_elem.innerHTML = "<form action='//krrc.myrari.net/login' method='get'><button type='submit'>Login</button></form>";
 
     } else if (remaining <= 0) {
         console.log("token expired");
         // redirect back to main page
-        window.location.href = "//127.0.0.1:4242/";
+        window.location.href = "//krrc.myrari.net/";
     } else {
         console.log(`token!! (${remaining} remaining)`);
 
