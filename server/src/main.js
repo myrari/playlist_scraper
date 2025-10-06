@@ -20,16 +20,18 @@ addEventListener("DOMContentLoaded", _ => {
         main_interact_elem.innerHTML = "<form action='http://127.0.0.1:4242/login' method='get'><button type='submit'>Login</button></form>";
 
     } else if (remaining <= 0) {
-	console.log("token expired");
-	// redirect back to main page
-	window.location.href = "//127.0.0.1:4242/";
+        console.log("token expired");
+        // redirect back to main page
+        window.location.href = "//127.0.0.1:4242/";
     } else {
         console.log(`token!! (${remaining} remaining)`);
 
         main_interact_elem.innerHTML =
-            "<label for='time_input'>Show Start Time: </label>" +
+            "<label for='time_input'>Show Start Time:</label>" +
             "<input type='time' id='time_input'>" +
+            "<label for='use_name_checkbox'>Auto-search by date:</label>" +
             "<input type='checkbox' id='use_name_checkbox'>" +
+            "<label for='name_textbox'>Playlist name:</label>" +
             "<input type='text' id='name_textbox'>" +
             "<button type='submit' id='search_button'>Search</button>";
 
@@ -37,8 +39,8 @@ addEventListener("DOMContentLoaded", _ => {
         const name_textbox = document.getElementById("name_textbox");
         const search_button = document.getElementById("search_button");
 
-        use_name_checkbox.onchange = _ => {
-            name_textbox.disabled = !this.checked;
+        use_name_checkbox.onchange = (evt) => {
+            name_textbox.disabled = evt.target.checked;
         };
 
         search_button.onclick = _ => {
@@ -150,11 +152,11 @@ async function search_playlist(name = "") {
             minute: "2-digit",
         });
 
-        formatted.push(`<p style='margin:unset'>${artist} - ${name} - ${time_str}</p>`);
+        formatted.push(`<p class='song_text'>${artist} - ${name} - ${time_str}</p>`);
     }
 
-    user_text_elem.innerHTML += "<div " +
-        "style='display:flex;flex-direction:column;padding:10;background-color:lightgray;border:gray 5px;border-style:solid;border-radius:5px;font-weight:normal'" +
+    user_text_elem.innerHTML += "<div" +
+        " class='out_text'" +
         ">" +
         (formatted.join("")) +
         "</div>";

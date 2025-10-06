@@ -28,6 +28,14 @@ app.get("/main.js", (_req, res) => {
     });
 });
 
+app.get("/styles.css", (_req, res) => {
+    res.appendHeader("Content-Type", "text/css");
+
+    res.sendFile("styles.css", {
+        root: root,
+    });
+});
+
 app.get("/client_id", (_req, res) => {
     res.appendHeader("Content-Type", "text/plain");
     res.send();
